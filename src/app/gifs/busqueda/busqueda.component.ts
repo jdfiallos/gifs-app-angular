@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, EventEmitter, Output, ViewChild } from '@angular/core';
+import { GifsService } from '../services/gifs.service';
 
 @Component({
   selector: 'app-busqueda',
@@ -6,11 +7,23 @@ import { Component, OnInit } from '@angular/core';
   styles: [
   ]
 })
-export class BusquedaComponent implements OnInit {
+export class BusquedaComponent  {
 
-  constructor() { }
+  @ViewChild('txtBuscar') txtBuscar!: ElementRef<HTMLInputElement>;
+  @Output() onNuevoHistorial: EventEmitter<any> =  new EventEmitter;
 
-  ngOnInit(): void {
+  constructor( private gifService: GifsService ){}
+
+  buscar() {
+    const valor = this.txtBuscar.nativeElement.value;
+
+    if ( valor.length === 0) {
+      return;
+    }
+
+    this.gifService.buscarGifs(valor);
+    this.txtBuscar.nativeElement.value = '';
+    this.onNuevoHistorial.emit();
   }
 
 }

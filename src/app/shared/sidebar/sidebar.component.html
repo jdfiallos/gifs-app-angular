@@ -5,8 +5,9 @@
     </h3>
     <hr class="text-white"/>
     <div class="list-group list-reset">
-      <a href="#" class="list-group-item list-group-item-action">
-        Dashboard
+      <a *ngFor="let gifs of historial" href="#" class="list-group-item list-group-item-action">
+        <!-- El pipe solo hace manipulaciones visuales -->
+        {{ gifs | titlecase }}
       </a>
     </div>
   </div>
